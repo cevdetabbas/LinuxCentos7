@@ -1,0 +1,30 @@
+//////      nmap -sP 192.168.1.100   //  bu galiba sadece ping scan
+
+// segment olayi birden fazla ip icin
+//  192.168.1.*
+//  192.168.1.129,130,131
+
+//////      nmap -sP 192.168.1.129 -n   // bu n dns resolutioni disregard ediyo yani muhtemelen gatewayi ve dns i ignore ediyo
+
+////  PORT SCAN
+//  tcp scan
+nmap 192.168.1.129 -n -sT  // bu butun acik tcp portlarini gosteriyo
+nmap 192.168.1.129 -n -sS -p 21,22  // bu specific portlari tariyo o portlarda hangi service ler calisiyo onu gosteriyo
+nmap 192.168.1.129 -n -sS -p 1-65535  // bu butun portlari tariyo
+
+////  SERVICE VERSION DETECTION
+nmap 192.168.1.129 -n -sS -p * -sV  //  -sV  service version detection i specify ediyo
+
+////  FAST SCANNING
+nmap 192.168.1.129 -n -sS -p * -sV -T1
+nmap 192.168.1.129 -n -sS -p * -sV -T2
+nmap 192.168.1.129 -n -sS -p * -sV -T3
+nmap 192.168.1.129 -n -sS -p * -sV -T4
+nmap 192.168.1.129 -n -sS -p * -sV -T5     //  denial of service sikintisi yoksa 5 kullanilabilir.
+nmap 192.168.1.129 -n -sS -p * -sV -Pn      //  this skips host discovery.
+
+////  SAVING RESULTS
+nmap 192.168.1.129 -n -sS -p * -sV -T1 -Pn -oN scan_results //  save normal
+nmap 192.168.1.129 -n -sS -p * -sV -T1 -Pn -oX scan_results //  save xml
+nmap 192.168.1.129 -n -sS -p * -sV -T1 -Pn -oS scan_results //  save ...
+nmap 192.168.1.129 -n -sS -p * -sV -T1 -Pn -oA scan_results //  save in all format
