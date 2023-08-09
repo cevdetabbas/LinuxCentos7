@@ -1,0 +1,45 @@
+// onceden netfilter ve ip tables varmis simdi firewalld var
+// firewalld nin de zone lari service leri port lari port-forward lari var bunlar firewall-cmd ile yonetiliyor.
+
+// iptable ornekleri
+iptables -L                                     //  bu ahvali gosteriyo
+iptables -P INPUT DROP                          //  her geleni durdur
+iptables -P OUTPUT DROP                         //  her gideni durdur
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT   //  port 80 den geleni al
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT  //  port 443 den geleni al
+iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT   //  input chainde allowed bi port varsa ona cevap versin
+
+iptables -F INPUT  //  flush everything
+iptables -F OUTPUT  //  flush everything
+iptables -L     //  see what is it
+iptables -P INPUT ACCEPT                          //  her geleni KABUL ET
+iptables -P OUTPUT ACCEPT                           //  her gideni KABUL ET
+
+// ama  firewall iyidir
+
+//  service ekleme
+firewall-cmd --get-services
+firewall-cmd --permanent --add-service=http
+firewall-cmd --permanent --add-service=https
+firewall-cmd --reload
+firewall-cmd --list-all
+
+//  port ekeleme
+firewall-cmd --permanent --add-port=678/tcp
+firewall-cmd --reload
+firewall-cmd --list-all
+
+
+//  create a service file
+cd /usr/lib/firewalld/services
+vim /usr/lib/firewalld/service/yourNewServiceName.xml  // yada bitane olandan kopyala
+cp /usr/lib/firewalld/services/ftp.xml /usr/lib/firewalld/services/kamil.xml
+// kendin olustururken module u silebilirsin
+
+//  rich firewall rules
+man 5 firewalld.richlanguage  // git burdaki examples lara bak cok duzgun cok
+firewall-cmd -- permanent --add-rich-rule='...................'
+firewall-cmd -- permanent --add-rich-rule='rule family=ipv4 source address=192.168.0.11 reject'
+firewall-cmd --reload
+
+tail /var/log/messages
