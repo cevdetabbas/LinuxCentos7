@@ -1,0 +1,8 @@
+sudo yum update -y
+sudo yum groupinstall "X Window System" -y
+sudo yum groupinstall -y "KDE"
+sudo yum groupinstall "Fonts" -y
+sudo yum install kde-workspace -y
+sudo yum install gdm -y
+sudo systemctl set-default graphical.target
+sudo reboot
