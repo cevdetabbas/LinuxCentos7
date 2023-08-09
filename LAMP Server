@@ -1,0 +1,44 @@
+yum install -y epel-release 
+yum install -y httpd mariadb mariadb-server php php-mysql phpMyAdmin
+systemctl enable --now httpd mariadb
+firewall-cmd --permanent --add-service=http
+firewall-cmd --permanent --add-service=https
+firewall-cmd --reload
+firewall-cmd --list-all
+systemctl restart httpd mariadb
+
+mysql_secure_installation
+##vim /etc/httpd/conf.d/phpMyAdmin.conf #burda <requiredlari all granted la degistirmek lazim## Require ip 127.0.0.1 bunu all granted ile degistir
+## bide localhost/phpmyadmin den de database in ayarlari yapilabilir. 
+
+<IfModule mod_authz_core.c>
+     # Apache 2.4
+     <RequireAny>
+       Require all granted
+       Require ip ::1
+     </RequireAny>
+   </IfModule>
+   <IfModule !mod_authz_core.c>
+     # Apache 2.2
+     Order Deny,Allow
+     Deny from All
+     Allow from All
+     Allow from ::1
+   </IfModule>
+
+
+###ayarlari
+mysql_secure_installation
+mysql -u root -p
+show databases;
+create database dbname;
+use dbname;
+describe jevodb;
+create table jevodb(col1(varchar(40), col1(varchar(40));
+select * from dbname;
+insert into dbname(col1, col2) values("col1row1value", "col2row1value");
+create user tm@'%' identified by '.';
+drop user
+grant select,insert,update,delete on dbname.* to tm@'%';
+flush privileges;
+show grants for tm@'%';
