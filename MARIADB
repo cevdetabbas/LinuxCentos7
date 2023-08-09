@@ -1,0 +1,37 @@
+// INSTALLATION AND START UP AND ENABLE SERVICE
+yum install -y mariadb mariadb-server
+systemctl start mariadb ; systemctl enable mariadb
+
+// BU PORT OLAYINA BAKIYO COK LUZUMLU DEGIL
+ss -tua | grep mysql
+
+// INSTALLATION
+mysql_secure_installation
+
+// LOG IN TO DATABASE WITH ROOT USER
+mysql -u root -p
+
+//  COMMON COMMANDS
+>show databases; 
+>create database dbname; 
+>use dbname;
+>create table dbname(r1 varchar(40), r2 varchar(40), r3 int, r4 int); 
+>insert into dbname('val1', 'val2', 12, 23);
+>CREATE USER julia@'%' IDENTIFIED BY 'secret';
+
+>flush priviliges
+>quit;
+mysql -u julia -p;
+>grant select,insert,update,delete on dbname.*;
+>use videos;
+>select * from zalimdb;
+>describe videos;
+>insert into dbname(r1,r2,r3,r4) values ('adi','kamil',22,33);
+
+// this erases the database 
+>drop database videos; 
+
+// LOGICAL BACKUPS
+mysqldump -u root -p dbname  // this makes up 
+mysqldump -u root -p dbname > /root/dbname.dump  // this restores from a location
+mysql -u root -p
