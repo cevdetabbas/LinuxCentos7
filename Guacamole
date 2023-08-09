@@ -1,0 +1,17 @@
+INSTALL GUACAMOLE ON CENTOS 7 & 6 (THE SUPER EASY WAY)
+Install guacamole
+yum install -y wget
+wget http://sourceforge.net/projects/guacamoleinstallscript/files/CentOS/guacamole-install-script.sh
+sudo chmod +x guacamole-install-script.sh
+sudo ./guacamole-install-script.sh
+
+Use guacamole
+http://IP-of-your-CentOS-VM:8080/guacamole/
+https://IP-of-your-CentOS-VM:8443/guacamole/
+Default username and password is guacadmin
+Login and press Ctrl+Alt+Shift at least twice to feel it
+Create a new user leungric and allow following
+Create new connections
+Create new connection groups
+Create new sharing profiles
+Change own password
