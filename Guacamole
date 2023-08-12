@@ -4,6 +4,51 @@ yum install -y wget
 wget http://sourceforge.net/projects/guacamoleinstallscript/files/CentOS/guacamole-install-script.sh
 sudo chmod +x guacamole-install-script.sh
 sudo ./guacamole-install-script.sh
+sudo yum install certbot python2-certbot-apache
+sudo yum install httpd
+sudo systemctl enable httpd --now
+sudo firewall-cmd --permanent --add-service=http --add-service=https ; firewall-cmd --reload
+sudo nano /etc/httpd/conf.d/guacamole.conf
+______
+  <VirtualHost *:80>
+    ServerName guac.cevdetabbas.com
+    Redirect permanent / https://guac.cevdetabbas.com/
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName guac.cevdetabbas.com
+
+    # SSL Certificate Configuration
+    SSLEngine on
+    SSLCertificateFile /etc/letsencrypt/live/guac.cevdetabbas.com/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/guac.cevdetabbas.com/privkey.pem
+
+    ProxyPass / http://localhost:8080/guacamole/
+    ProxyPassReverse / http://localhost:8080/guacamole/
+</VirtualHost>
+_____
+
+sudo certbot certonly --webroot -w /var/www/html -d guac.cevdetabbas.com
+
+vim /etc/httpd/conf.d/guacamole.conf
+  # Hostname and port of guacamole proxy
+  guacd-ssl: true
+  guacd-hostname: localhost
+  guacd-port:     4822
+
+  # MySQL properties
+  mysql-hostname: localhost
+  mysql-port: 3306
+  mysql-database: guacamole
+  mysql-username: guacamole
+  mysql-password: guacamole
+  mysql-default-max-connections-per-user: 0
+  mysql-default-max-group-connections-per-user: 0
+_____
+
+sudo systemctl restart httpd
+sudo systemctl restart guacd
+
 
 Use guacamole
 http://IP-of-your-CentOS-VM:8080/guacamole/
@@ -15,3 +60,21 @@ Create new connections
 Create new connection groups
 Create new sharing profiles
 Change own password
+
+
+yum install -y wget
+wget http://sourceforge.net/projects/guacamoleinstallscript/files/CentOS/guacamole-install-script.sh
+   20  ll
+   21  rm -rf guacamole-install-script.sh.1
+   22  chmod 700 guacamole-install-script.sh
+   23  ./guacamole-install-script.sh
+   24  firewall-cmd --list-all
+   25  
+   33  vim /etc/httpd/conf.d/guacamole.conf
+   34  sudo certbot certonly --webroot -w /var/www/html -d guacamole.example.com
+   35  sudo certbot certonly --webroot -w /var/www/html -d guac.cevdetabbas.com
+   36  sudo nano /etc/guacamole/guacamole.properties
+   37  vim /etc/guacamole/guacamole.properties
+   38  sudo systemctl restart httpd
+   39  sudo systemctl restart guacd
+   40  sudo systemctl restart guacamole
