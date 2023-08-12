@@ -62,19 +62,3 @@ Create new sharing profiles
 Change own password
 
 
-yum install -y wget
-wget http://sourceforge.net/projects/guacamoleinstallscript/files/CentOS/guacamole-install-script.sh
-   20  ll
-   21  rm -rf guacamole-install-script.sh.1
-   22  chmod 700 guacamole-install-script.sh
-   23  ./guacamole-install-script.sh
-   24  firewall-cmd --list-all
-   25  
-   33  vim /etc/httpd/conf.d/guacamole.conf
-   34  sudo certbot certonly --webroot -w /var/www/html -d guacamole.example.com
-   35  sudo certbot certonly --webroot -w /var/www/html -d guac.cevdetabbas.com
-   36  sudo nano /etc/guacamole/guacamole.properties
-   37  vim /etc/guacamole/guacamole.properties
-   38  sudo systemctl restart httpd
-   39  sudo systemctl restart guacd
-   40  sudo systemctl restart guacamole
