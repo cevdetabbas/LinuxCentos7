@@ -1,3 +1,6 @@
-yum update -y ; yum install -y wget certbot python2-certbot-apache httpd
+yum update -y ; yum install -y wget certbot python2-certbot-apache httpd 
+sudo systemctl enable httpd --now ; sudo firewall-cmd --permanent --add-service=http --add-service=https ; firewall-cmd --reload ; firewall-cmd --list-all
+
+
 
 
