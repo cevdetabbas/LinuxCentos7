@@ -1,0 +1,3 @@
+yum update -y ; yum install -y wget certbot python2-certbot-apache httpd
+
+
