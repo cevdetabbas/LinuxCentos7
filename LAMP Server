@@ -8,6 +8,8 @@ firewall-cmd --list-all
 systemctl restart httpd mariadb
 
 mysql_secure_installation
+
+---eger illaki ben phpmyadminden yardiracam diyosaniz---
 ##vim /etc/httpd/conf.d/phpMyAdmin.conf #burda <requiredlari all granted la degistirmek lazim## Require ip 127.0.0.1 bunu all granted ile degistir
 ## bide localhost/phpmyadmin den de database in ayarlari yapilabilir. 
 
@@ -34,9 +36,10 @@ show databases;
 create database dbname;
 use dbname;
 describe jevodb;
-create table jevodb(col1(varchar(40), col1(varchar(40));
-select * from dbname;
+create table jevodb(col1 varchar(40), col1 varchar(40));
 insert into dbname(col1, col2) values("col1row1value", "col2row1value");
+select * from dbname;
+CREATE TABLE login (username varchar(40), password varchar(40));
 create user tm@'%' identified by '.';
 drop user
 grant select,insert,update,delete on dbname.* to tm@'%';
