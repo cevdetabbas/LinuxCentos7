@@ -30,8 +30,8 @@ _____
 
 sudo certbot certonly --webroot -w /var/www/html -d guac.cevdetabbas.com
 
-vim /etc/httpd/conf.d/guacamole.conf
-  # Hostname and port of guacamole proxy
+vim /etc/guacamole/guacamole.prop
+# Hostname and port of guacamole proxy
   guacd-ssl: true
   guacd-hostname: localhost
   guacd-port:     4822
