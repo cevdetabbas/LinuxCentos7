@@ -1,5 +1,7 @@
-yum update -y 
-yum install -y wget certbot python2-certbot-apache httpd 
+#!/bin/bash
+yum update -y
+yum groups install -y "Basic Web Server"
+yum install -y wget certbot python2-certbot-apache httpd
 systemctl start httpd
 systemctl enable httpd
 systemctl status httpd
@@ -7,5 +9,5 @@ firewall-cmd --permanent --add-service=http --add-service=https ; firewall-cmd -
 wget http://sourceforge.net/projects/guacamoleinstallscript/files/CentOS/guacamole-install-script.sh
 sudo chmod +x guacamole-install-script.sh
 sudo ./guacamole-install-script.sh
-
-
+sudo systemctl restart httpd
+sudo systemctl restart guacd
