@@ -11,3 +11,38 @@ sudo chmod +x guacamole-install-script.sh
 sudo ./guacamole-install-script.sh
 sudo systemctl restart httpd
 sudo systemctl restart guacd
+
+vim /etc/httpd/conf.d/guacamole.conf
+___________________________________________________________________________________________________________
+ <VirtualHost *:80>
+    ServerName guacamole.cevdetabbas.com
+    Redirect permanent / https://guacamole.cevdetabbas.com/
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName guacamole.cevdetabbas.com
+
+    # SSL Certificate Configuration
+    SSLEngine on
+    SSLCertificateFile /etc/letsencrypt/live/guacamole.cevdetabbas.com/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/guacamole.cevdetabbas.com/privkey.pem
+
+    ProxyPass / http://localhost:8080/guacamole/
+    ProxyPassReverse / http://localhost:8080/guacamole/
+</VirtualHost>
+______________________________________________________________________________________________________________
+
+sudo certbot certonly --webroot -w /var/www/html -d guacamole.cevdetabbas.com
+sudo certbot renew --dry-run
+
+sudo crontab -e
+_______________________________________________________________________________________________________________
+0 0 * * * certbot renew
+________________________________________________________________________________________________________________
+
+
+vim /etc/guacamole/guacamole.properties
+_________________________________________________________________________________________________________________
+#bunu ilk satira koy
+guacd-ssl: true 
+__________________________________________________________________________________________________________________
