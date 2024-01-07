@@ -1,0 +1,8 @@
+yum update -y
+yum install -y epel-release
+yum groupinstall -y "X Window System"
+yum groupinstall -y "Fonts"
+yum install -y openbox
+yum install -y gdm
+systemctl set-default graphical.target
+reboot
